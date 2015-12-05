@@ -3,22 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Stock.Models;
+using StockOrder.Models;
 
 namespace StockOrder.Controllers
 {
     public class StockController : Controller
     {
         // GET: Stock
-        public ActionResult Price()
+        public ActionResult Form()
         {
             return View();
         }
 
+
         [HttpPost]
-        public ActionResult Price (StockOrderClass p)
+        public ActionResult Form(Stock stock)
         {
-            return View(p);
+            if (ModelState.IsValid)                     // check server-side validation
+            {
+                return RedirectToAction("Details", stock);
+            }
+            else
+            {
+                return View(stock);
+            }
+        }
+
+        // display details of the company data
+        public ActionResult Details(Stock stock)
+        {
+            return View(stock);
         }
     }
 }

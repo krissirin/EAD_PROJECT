@@ -16,7 +16,7 @@ namespace StockOrder
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Stock", action = "Price", id = UrlParameter.Optional }
+                defaults: new { controller = "Stock", action = "Form", id = UrlParameter.Optional }
             );
         }
     }
