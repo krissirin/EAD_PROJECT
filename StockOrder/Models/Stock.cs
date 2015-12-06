@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,19 +25,40 @@ namespace StockOrder.Models
 
         [DataType(DataType.Currency)]
         public double Price { get; set; }
+    }
 
-        public virtual ApplicationUser User { get; set; }
-        public string ApplicationUserId { get; set; }
+    public class CompanyDetails
+    {
+        public TicKerSelelect Ticker { get; set; }
+
+        [Range(0, 100)]
+        [DataType(DataType.Currency)]
+        [Display(Name = "EPS: ")]
+        public double EarningsPershare { get; set; }
+
+        [DataType(DataType.Currency)]
+        [Display(Name = "MARKET CAP: ")]
+        public double MarketCap { get; set; }
+
+        [Range(0, 1000)]
+        [Display(Name = "1 Year Target: ")]
+        public double OneYearTargetPrice { get; set; }
+
+        [Range(0, 1000)]
+        [Display(Name = "P/E: ")]
+        public double PriceEarningsRatio { get; set; }
 
     }
     //###### Need to add a connection string in Web.config  ####
-    public class StockDBContext : DbContext
+    public partial class StockDbContext : DbContext
     {
-        public StockDBContext():base("DefaultConnection")
+        public StockDbContext():base("DefaultConnection")
         {
         }
         
         public DbSet<Stock> Stocks { get; set; }
+        public DbSet<CompanyDetails> Details { get; set; }
+
     }
 
     //class StockDBTest
