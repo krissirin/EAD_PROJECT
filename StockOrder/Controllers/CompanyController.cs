@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,7 +18,7 @@ namespace StockOrder.Controllers
         // GET: Company/Details
         public ActionResult Details()
         {
-            var companyDetail = new CompanyDetail
+            var companyDetail = new CompanyDetails
             { Ticker = TicKerSelelect.AAPL, EarningsPershare = 9.20, MarketCap = 654.40,
                 OneYearTargetPrice = 150, PriceEarningsRatio = 12.77 };
             return View(companyDetail);
