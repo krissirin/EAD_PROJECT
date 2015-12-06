@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -25,7 +25,7 @@ namespace StockOrder.Controllers
             }
             else
             {
-                return View(stock);
+                return View();
             }
         }
 
@@ -34,5 +34,7 @@ namespace StockOrder.Controllers
         {
             return View(stock);
         }
+
     }
+
 }
