@@ -29,6 +29,7 @@ namespace StockOrder.Models
 
     public class CompanyDetails
     {
+        [Key]
         public TicKerSelelect Ticker { get; set; }
 
         [Range(0, 100)]
@@ -49,11 +50,11 @@ namespace StockOrder.Models
         public double PriceEarningsRatio { get; set; }
 
     }
-    //###### Need to add a connection string in Web.config  ####
     public partial class StockDbContext : DbContext
     {
         public StockDbContext():base("DefaultConnection")
         {
+         Database.SetInitializer<StockDbContext>(new DropCreateDatabaseIfModelChanges<StockDbContext>());
         }
         
         public DbSet<Stock> Stocks { get; set; }
@@ -61,17 +62,57 @@ namespace StockOrder.Models
 
     }
 
-    //class StockDBTest
-    //{
-    //    db context
-    //    StockDBContext db = new StockDBContext();
+    public class StockDataIndex
+    {
+        public void AddStock(Stock s1)
+        {
+            using (StockDbContext db = new StockDbContext())
+            {
+                try
+                {
+                    db.Stocks.Add(s1);
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                { Console.WriteLine(e.ToString()); }
+            }
+        }
 
-    //    add a new stock
-    //    public void Add(StockDBContext entry)
-    //    {
-    //        db.Stocks.Add(entry);
-    //        db.SaveChanges();
-    //    }
-    //}
+        public void AddCompanyDetail(CompanyDetails d1)
+        {
+            using (StockDbContext db = new StockDbContext())
+            {
+                try
+                {
+                    db.Details.Add(d1);
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                { Console.WriteLine(e.ToString()); }
+            }
+        }
+    }
+    public class StockDbTest
+    {
+        static void main()
+        {
+            StockDataIndex getStock = new StockDataIndex();
+            Stock sd1 = new Stock()
+            { Ticker = TicKerSelelect.AAPL, StockName = "Apple Inc.", Price = 117.52 };
+            getStock.AddStock(sd1);
+
+            StockDataIndex getDetail = new StockDataIndex();
+            CompanyDetails cd1 = new CompanyDetails()
+            {
+                Ticker = TicKerSelelect.AAPL,
+                EarningsPershare = 9.20,
+                MarketCap = 654.40,
+                OneYearTargetPrice = 150,
+                PriceEarningsRatio = 12.77
+            };
+            getDetail.AddCompanyDetail(cd1);
+        }
+    }
 }
+
 
